@@ -103,6 +103,7 @@ void AutoDocking::dockCallback(const fetch_auto_dock_msgs::DockGoalConstPtr& goa
 
   // Get initial dock pose.
   geometry_msgs::PoseStamped dock_pose_base_link;
+  dock_pose_base_link.pose.orientation.w = 1.0;
   while (!perception_.getPose(dock_pose_base_link, "base_link"))
   {
     // Wait for perception to get its first pose estimate.
