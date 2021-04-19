@@ -3,8 +3,8 @@ define laser ranger
   sensor
   (
     range_max 6.5
-    fov 58.0
-    samples 640
+    fov 158.0
+    samples 2640
   )
   # generic model properties
   color "black"
@@ -26,5 +26,5 @@ define diff_drive_robot position
   drive "diff"
 
   # spawn sensors
-  laser(pose [ -0.1 0.0 -0.11 0.0 ])
+  laser(pose [ 0.1 0.0 -0.11 0.0 ])
 )

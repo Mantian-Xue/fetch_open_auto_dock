@@ -20,7 +20,7 @@ define floorplan model
 )
 
 resolution 0.02
-interval_sim 100  # simulation timestep in milliseconds
+interval_sim 10  # simulation timestep in milliseconds
 
 window
 (
@@ -48,6 +48,6 @@ diff_drive_robot
 dock
 (
   name "dock"
-  pose [2.0 0.0 0.0 180]
+  pose [4.0 0.0 0.0 180]
   color "green"
 )

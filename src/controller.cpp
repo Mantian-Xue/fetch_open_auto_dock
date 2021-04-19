@@ -32,11 +32,11 @@ BaseController::BaseController(ros::NodeHandle& nh)
   cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 10);
 
   // TODO(enhancement): these should be loaded from ROS params
-  k1_ = 3;
-  k2_ = 2;
+  k1_ = 2;
+  k2_ = 3;
   min_velocity_ = 0.15;
   max_velocity_ = 0.15;
-  max_angular_velocity_ = 2.0;
+  max_angular_velocity_ = 1.0;
   beta_ = 0.2;
   lambda_ = 2.0;
 }
@@ -106,7 +106,7 @@ bool BaseController::approach(const geometry_msgs::PoseStamped& target)
   // Compute the virtual control
   double a = atan(-k1_ * theta);
   // Compute curvature (k)
-  double k = -1.0/r * (k2_ * (delta - a) + (1 + (k1_/1+((k1_*theta)*(k1_*theta))))*sin(delta));
+  double k = -1.0/r * (k2_ * (delta - a) + (1 + k1_/(1+((k1_*theta)*(k1_*theta))))*sin(delta));
 
   // Compute max_velocity based on curvature
   double v = max_velocity_ / (1 + beta_ * std::pow(fabs(k), lambda_));
