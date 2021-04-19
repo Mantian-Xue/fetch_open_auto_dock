@@ -17,7 +17,7 @@ class ViewDock(object):
     def __init__(self, publish_tf=True):
         rospy.init_node("view_dock")
         rospy.Subscriber("dock/feedback", DockActionFeedback, self.callback)
-        self.publisher = rospy.Publisher("path", Path)
+        self.publisher = rospy.Publisher("path", Path,queue_size=1)
         self.broadcaster = tf.TransformBroadcaster()
         self.publish_tf = publish_tf
 

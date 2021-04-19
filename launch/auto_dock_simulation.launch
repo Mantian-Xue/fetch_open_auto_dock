@@ -17,5 +17,7 @@
 	<!--  **************** Visualisation ****************  -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find fetch_open_auto_dock)/rviz/dock.rviz" if="$(arg rviz)"/>
 
+    <node name="auto_dock" pkg="fetch_open_auto_dock" type="auto_dock" output="screen" />
+    <node name="dock_on_button" pkg="fetch_open_auto_dock" type="view_dock.py" />
     <!-- TODO: run testing scripts -->
 </launch>

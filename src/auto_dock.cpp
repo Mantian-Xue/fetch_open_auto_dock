@@ -200,11 +200,11 @@ void AutoDocking::dockCallback(const fetch_auto_dock_msgs::DockGoalConstPtr& goa
 bool AutoDocking::continueDocking(fetch_auto_dock_msgs::DockResult& result)
 {
   // If charging, stop and return success.
-  if (charging_)
+  if (0)
   {
     result.docked = true;
     dock_.setSucceeded(result);
-    ROS_DEBUG_NAMED("autodock_dock_callback",
+    ROS_WARN_NAMED("autodock_dock_callback",
                     "Docking success: Robot has docked");
     return false;
   }

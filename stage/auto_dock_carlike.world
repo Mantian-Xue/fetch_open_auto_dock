@@ -1,4 +1,5 @@
 include "robots/carlike_robot.inc"
+include "robots/diff_drive_robot.inc"
 include "robots/dock.inc"
 
 
@@ -38,7 +39,7 @@ floorplan
 )
 
 # throw in a robot
-carlike_robot
+diff_drive_robot
 (
   pose [ 0.0 0.0 0.0 0.0 ]
   name "robot"
@@ -47,6 +48,6 @@ carlike_robot
 dock
 (
   name "dock"
-  pose [3.0 0.0 0.0 180]
+  pose [2.0 0.0 0.0 180]
   color "green"
 )
