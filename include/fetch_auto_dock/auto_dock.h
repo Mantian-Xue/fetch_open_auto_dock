@@ -29,16 +29,16 @@
 #include <actionlib/client/simple_action_client.h>
 
 // Fetch Includes.
-#include <fetch_driver_msgs/RobotState.h>
-#include <fetch_driver_msgs/DisableChargingAction.h>
-#include <fetch_auto_dock_msgs/DockAction.h>
-#include <fetch_auto_dock_msgs/UndockAction.h>
+#include <fetch_open_auto_dock/RobotState.h>
+#include <fetch_open_auto_dock/DisableChargingAction.h>
+#include <fetch_open_auto_dock/DockAction.h>
+#include <fetch_open_auto_dock/UndockAction.h>
 
 class AutoDocking
 {
-  typedef actionlib::SimpleActionClient<fetch_driver_msgs::DisableChargingAction> charge_lockout_client_t;
-  typedef actionlib::SimpleActionServer<fetch_auto_dock_msgs::DockAction> dock_server_t;
-  typedef actionlib::SimpleActionServer<fetch_auto_dock_msgs::UndockAction> undock_server_t;
+  typedef actionlib::SimpleActionClient<fetch_open_auto_dock::DisableChargingAction> charge_lockout_client_t;
+  typedef actionlib::SimpleActionServer<fetch_open_auto_dock::DockAction> dock_server_t;
+  typedef actionlib::SimpleActionServer<fetch_open_auto_dock::UndockAction> undock_server_t;
 
 public:
   /**
@@ -53,20 +53,20 @@ private:
    * @brief Method to update the robot charge state.
    * @param state Robot state message to extract charge state from.
    */
-  void stateCallback(const fetch_driver_msgs::RobotStateConstPtr& state);
+  void stateCallback(const fetch_open_auto_dock::RobotStateConstPtr& state);
 
   /**
    * @brief Method to execute the docking behavior.
    * @param goal Initial pose estimate of the dock.
    */
-  void dockCallback(const fetch_auto_dock_msgs::DockGoalConstPtr& goal);
+  void dockCallback(const fetch_open_auto_dock::DockGoalConstPtr& goal);
 
   /**
    * @brief Method that checks success or failure of docking.
    * @param result Dock result message used to set the dock action server state.
    * @return True if we have neither succeeded nor failed to dock.
    */
-  bool continueDocking(fetch_auto_dock_msgs::DockResult& result);
+  bool continueDocking(fetch_open_auto_dock::DockResult& result);
 
   /**
    * @brief Method to see if the robot seems to be docked but not charging.
@@ -79,7 +79,7 @@ private:
    * @brief Method to execute the undocking behavior.
    * @param goal Docking control action for rotating off of the goal.
    */
-  void undockCallback(const fetch_auto_dock_msgs::UndockGoalConstPtr& goal);
+  void undockCallback(const fetch_open_auto_dock::UndockGoalConstPtr& goal);
 
   /**
    * @brief Method sets the docking deadline and number of retries.

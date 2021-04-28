@@ -32,11 +32,11 @@ BaseController::BaseController(ros::NodeHandle& nh)
   cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 10);
 
   // TODO(enhancement): these should be loaded from ROS params
-  k1_ = 2;
-  k2_ = 3;
+  k1_ = 1;
+  k2_ = 10;
   min_velocity_ = 0.15;
   max_velocity_ = 0.15;
-  max_angular_velocity_ = 1.0;
+  max_angular_velocity_ = 0.5;
   beta_ = 0.2;
   lambda_ = 2.0;
 }

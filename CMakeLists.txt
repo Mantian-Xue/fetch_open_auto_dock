@@ -9,8 +9,6 @@ find_package(catkin REQUIRED
   COMPONENTS
     actionlib
     angles
-    fetch_auto_dock_msgs
-    fetch_driver_msgs
     geometry_msgs
     nav_msgs
     roslib
@@ -18,15 +16,38 @@ find_package(catkin REQUIRED
     rospy
     std_msgs
     tf
+    message_generation
 )
 find_package(Eigen3 REQUIRED)
+
+add_action_files(
+    FILES
+    DisableCharging.action
+    Dock.action
+    Undock.action
+    )
+
+add_message_files(
+    FILES
+    BoardState.msg
+    ChargerState.msg
+    JointState.msg
+    MotorState.msg
+    RobotState.msg
+    BreakerState.msg
+    )
+
+generate_messages(
+    DEPENDENCIES
+    actionlib_msgs
+    geometry_msgs
+    std_msgs
+    )
 
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS
     actionlib
-    fetch_auto_dock_msgs
-    fetch_driver_msgs
     geometry_msgs
     nav_msgs
     roslib
@@ -35,6 +56,7 @@ catkin_package(
     sensor_msgs
     std_msgs
     tf
+    message_runtime
 )
 
 include_directories(
@@ -42,6 +64,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
 )
+
 
 add_executable(auto_dock
   src/auto_dock.cpp

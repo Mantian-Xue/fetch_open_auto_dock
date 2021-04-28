@@ -46,7 +46,7 @@ AutoDocking::AutoDocking() :
   pnh.param("docked_distance_threshold",         DOCKED_DISTANCE_THRESHOLD_,         0.34);
 
   // Subscribe to robot state
-  state_ = nh_.subscribe<fetch_driver_msgs::RobotState>("robot_state",
+  state_ = nh_.subscribe<fetch_open_auto_dock::RobotState>("robot_state",
                                                         1,
                                                         boost::bind(&AutoDocking::stateCallback, this, _1));
 
@@ -59,7 +59,7 @@ AutoDocking::~AutoDocking()
 {
 }
 
-void AutoDocking::stateCallback(const fetch_driver_msgs::RobotStateConstPtr& state)
+void AutoDocking::stateCallback(const fetch_open_auto_dock::RobotStateConstPtr& state)
 {
   // Check the voltage to see if we were connected to the dock.
   // Previously, this check was done by checking the supply_breaker.current
@@ -73,10 +73,10 @@ void AutoDocking::stateCallback(const fetch_driver_msgs::RobotStateConstPtr& sta
   charging_ = (state->charger.supply_voltage > 30.0);
 }
 
-void AutoDocking::dockCallback(const fetch_auto_dock_msgs::DockGoalConstPtr& goal)
+void AutoDocking::dockCallback(const fetch_open_auto_dock::DockGoalConstPtr& goal)
 {
-  fetch_auto_dock_msgs::DockFeedback feedback;
-  fetch_auto_dock_msgs::DockResult result;
+  fetch_open_auto_dock::DockFeedback feedback;
+  fetch_open_auto_dock::DockResult result;
 
   // Reset flags.
   result.docked = false;
@@ -197,7 +197,7 @@ void AutoDocking::dockCallback(const fetch_auto_dock_msgs::DockGoalConstPtr& goa
  * @param result Dock result message used to set the dock action server state.
  * @return True if we have neither succeeded nor failed to dock.
  */
-bool AutoDocking::continueDocking(fetch_auto_dock_msgs::DockResult& result)
+bool AutoDocking::continueDocking(fetch_open_auto_dock::DockResult& result)
 {
   // If charging, stop and return success.
   if (0)
@@ -388,7 +388,7 @@ bool AutoDocking::lockoutCharger(unsigned seconds)
     return false;
   }
 
-  fetch_driver_msgs::DisableChargingGoal lockout_goal;
+  fetch_open_auto_dock::DisableChargingGoal lockout_goal;
 
   // Attempt to connect to the charger lockout server and lockout the charger.
   if (charge_lockout_.waitForServer(ros::Duration(1.0)))
@@ -411,15 +411,15 @@ bool AutoDocking::lockoutCharger(unsigned seconds)
   return true;
 }
 
-void AutoDocking::undockCallback(const fetch_auto_dock_msgs::UndockGoalConstPtr& goal)
+void AutoDocking::undockCallback(const fetch_open_auto_dock::UndockGoalConstPtr& goal)
 {
 
 
   // Disable the charger for just a little bit longer than the undock procedure might take.
   lockoutCharger(6); 
 
-  fetch_auto_dock_msgs::UndockFeedback feedback;
-  fetch_auto_dock_msgs::UndockResult result;
+  fetch_open_auto_dock::UndockFeedback feedback;
+  fetch_open_auto_dock::UndockResult result;
   result.undocked = false;
 
   // Distances to backup/turn

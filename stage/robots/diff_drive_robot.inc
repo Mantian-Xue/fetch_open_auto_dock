@@ -3,7 +3,7 @@ define laser ranger
   sensor
   (
     range_max 6.5
-    fov 158.0
+    fov 180.0
     samples 2640
   )
   # generic model properties
